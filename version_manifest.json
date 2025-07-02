@@ -1,0 +1,9 @@
+{
+  "version": "1.0.2",
+  "apk_url": "https://www.dropbox.com/scl/fi/no4k793h2fq5x7fe9bbny/app-release.apk?rlkey=751ovcwip3p25p9spmhv5h35y&st=z494v4fw&dl=1",
+  "changelog": "- Fixed weather widget display issues\n- Added Arabic language support for weather\n- Improved calculation accuracy\n- Added auto-update functionality\n- Bug fixes and performance improvements",
+  "force_update": false,
+  "min_version": "1.0.0",
+  "release_date": "2024-01-15",
+  "file_size": "23.6MB"
+} 
