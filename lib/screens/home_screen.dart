@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models.dart';
-import '../main.dart';
 import '../l10n/app_localizations.dart';
 import '../storage.dart';
 import '../weather_service.dart';
@@ -150,10 +149,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       resultText += 'Clicks Up: $rangeCorrectionClicks\n';
       
       // 2. Clicks (windage clicks) - SECOND
-      resultText += '${AppLocalizations.of(context)!.clicks}: ${output['clicks']!.toStringAsFixed(2)}\n';
+      resultText += '${AppLocalizations.of(context)!.clicks}: ${output['clicks']!.toStringAsFixed(1)}\n';
       
       // 3. MOA (windage MOA) - THIRD
-      resultText += 'MOA: ${output['moa']!.toStringAsFixed(2)}';
+      resultText += 'MOA: ${output['moa']!.toStringAsFixed(1)}';
       
       result = resultText;
       
@@ -188,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         'Military Formula:\n'
         '$formulaString\n'
         'Clicks = MOA × MOA→Clicks Factor\n'
-        'MOA: ${output['moa']!.toStringAsFixed(2)}\nClicks: ${output['clicks']!.toStringAsFixed(1)}';
+        'MOA: ${output['moa']!.toStringAsFixed(1)}\nClicks: ${output['clicks']!.toStringAsFixed(1)}';
       
       // Add range correction information to details
       if (rangeCorrectionClicks > 0) {
