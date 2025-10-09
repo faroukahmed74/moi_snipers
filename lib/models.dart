@@ -216,18 +216,18 @@ class BallisticsCalculator {
   static Map<String, double> calculateMOAAndClicksMilitary({
     required SniperType sniper,
     required double distance, // in meters or yards
-    required double windSpeed, // in mph
+    required double windSpeed, // in mph or km/h
     required double windAngle, // in degrees
     String distanceUnit = 'meters',
+    String windSpeedUnit = 'mph',
   }) {
     // Convert distance to yards
     double distYards = distanceUnit == 'meters' ? distance * 1.09361 : distance;
-    // Use wind angle in calculation
-    double angleRad = 0.0;
-    if (windAngle != null) {
-      angleRad = windAngle * pi / 180.0;
-    }
-    // Muzzle velocity in fps
+    
+    // Convert wind speed to mph (equations expect mph)
+    double windSpeedMph = windSpeedUnit == 'km/h' ? windSpeed * 0.621371 : windSpeed;
+    
+    // Muzzle velocity in fps (for future use in advanced calculations)
     double v0fps = sniper.muzzleVelocity * 3.28084; // m/s to ft/s
     
     // Select windage constant based on sniper type and distance
@@ -252,10 +252,10 @@ class BallisticsCalculator {
       }
     }
     
-    // MOA base calculation
-    double baseMoa = (windSpeed * 0.01 * distYards) / constant;
+    // MOA base calculation (using converted wind speed in mph)
+    double baseMoa = (windSpeedMph * 0.01 * distYards) / constant;
     double moa = baseMoa;
-    if (windAngle != null && windAngle != 90) {
+    if (windAngle != 90) {
       moa = baseMoa * (windAngle / 90.0);
     }
     double clicks = moa * sniper.moaToClickFactor;

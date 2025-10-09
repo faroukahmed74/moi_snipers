@@ -1,9 +1,9 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.10",
   "apk_url": "https://www.dropbox.com/scl/fi/no4k793h2fq5x7fe9bbny/app-release.apk?rlkey=751ovcwip3p25p9spmhv5h35y&st=z494v4fw&dl=1",
-  "changelog": "- Fixed weather widget display issues\n- Added Arabic language support for weather\n- Improved calculation accuracy\n- Added auto-update functionality\n- Bug fixes and performance improvements",
+  "changelog": "🎯 Major Features Added:\n• Interactive Wind Angle Control: Users can now both slide and type wind angle values with real-time synchronization\n• Dual Weather API System: Automatic fallback between Tomorrow.io (primary) and OpenWeatherMap (fallback) with live API status display\n• Enhanced Wind Gust Display: Shows both mph and km/h units simultaneously for comprehensive wind data\n• Precision Formatting: All calculation results now display with single decimal place (رقم عشري واحد) for improved accuracy\n• Improved User Experience: Better input controls and real-time data synchronization\n• Bug fixes and performance improvements",
   "force_update": false,
   "min_version": "1.0.0",
-  "release_date": "2024-01-15",
+  "release_date": "2025-10-01",
   "file_size": "23.6MB"
 } 
