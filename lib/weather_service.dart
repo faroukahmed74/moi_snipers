@@ -7,9 +7,9 @@ class WeatherService {
   // Tomorrow.io: https://www.tomorrow.io/weather-api/
   // AccuWeather: https://developer.accuweather.com/
   // OpenWeatherMap: https://openweathermap.org/api
-  static const String tomorrowIoApiKey = 'YOUR_TOMORROW_IO_API_KEY';
-  static const String accuWeatherApiKey = 'YOUR_ACCUWEATHER_API_KEY';
-  static const String openWeatherMapApiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
+  static const String tomorrowIoApiKey = 'YeG99E0MIHalLUAfWxIuAKAvztNbEHpj';
+  static const String accuWeatherApiKey = 'zpka_f646dd3584894fd0a85c6374192b0292_7f21e210';
+  static const String openWeatherMapApiKey = '700667676a71e72a9b31ff7be65b5ca7';
   
   // API URLs
   static const String tomorrowIoBaseUrl = 'https://api.tomorrow.io/v4/weather/realtime';
