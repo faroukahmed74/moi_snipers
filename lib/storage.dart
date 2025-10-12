@@ -33,9 +33,19 @@ class Storage {
         'distanceUnit': 'meters',
         'windUnit': 'm/s',
         'themeMode': 'system',
+        'useTrueNorth': true,
+        'compassCalibrationOffsetDeg': 0.0,
       };
     }
-    return json.decode(jsonStr);
+    final Map<String, dynamic> loaded = json.decode(jsonStr);
+    // Ensure new keys have sensible defaults if missing
+    if (!loaded.containsKey('compassCalibrationOffsetDeg')) {
+      loaded['compassCalibrationOffsetDeg'] = 0.0;
+    }
+    if (!loaded.containsKey('useTrueNorth')) {
+      loaded['useTrueNorth'] = true;
+    }
+    return loaded;
   }
 
   static Future<void> saveSettings(Map<String, dynamic> settings) async {
@@ -55,4 +65,4 @@ class Storage {
     settings['themeMode'] = themeMode;
     await saveSettings(settings);
   }
-} 
+}

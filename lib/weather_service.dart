@@ -47,12 +47,28 @@ class WeatherService {
         return _getFallbackWeatherData();
       }
 
-      // Get current position
+      // Get current position with robust fallback to last known location
       print('Getting current position...');
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        timeLimit: const Duration(seconds: 15),
-      );
+      Position? position;
+      try {
+        position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high,
+          timeLimit: const Duration(seconds: 20),
+        );
+      } catch (e) {
+        print('getCurrentPosition failed: $e');
+      }
+
+      if (position == null) {
+        print('Attempting getLastKnownPosition fallback...');
+        position = await Geolocator.getLastKnownPosition();
+      }
+
+      if (position == null) {
+        print('No position available (current or last-known). Using fallback data.');
+        return _getFallbackWeatherData();
+      }
+
       print('Position: ${position.latitude}, ${position.longitude}');
 
       // Try APIs in order: Tomorrow.io -> AccuWeather -> OpenWeatherMap
@@ -342,4 +358,4 @@ class WeatherService {
     if (degrees >= 292.5 && degrees < 337.5) return 'NW';
     return 'N';
   }
-} 
+}

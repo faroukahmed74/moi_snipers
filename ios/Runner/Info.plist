@@ -49,5 +49,14 @@
 	<string>This app needs access to location to provide weather data for sniper calculations.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs access to location to provide weather data for sniper calculations.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Allow Flutter tools to connect to the Dart VM running on the device for debugging.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartobservatory._tcp</string>
+		<string>_dartVmService._tcp</string>
+	</array>
+	<key>NSMotionUsageDescription</key>
+	<string>This app uses motion sensors (accelerometer, gyroscope, magnetometer) to show compass heading.</string>
 </dict>
 </plist>

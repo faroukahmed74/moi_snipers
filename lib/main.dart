@@ -4,6 +4,7 @@ import 'screens/home_screen.dart';
 import 'screens/sniper_management_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/references_screen.dart';
+import 'screens/compass_screen.dart';
 import 'l10n/app_localizations.dart';
 import 'storage.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -83,6 +84,7 @@ class _MyAppState extends State<MyApp> {
         '/snipers': (context) => const SniperManagementScreen(),
         '/settings': (context) => const SettingsScreen(),
         '/references': (context) => const ReferencesScreen(),
+        '/compass': (context) => const CompassScreen(),
       },
     );
   }
