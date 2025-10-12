@@ -88,6 +88,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get references => 'References';
+  @override
+  String get calculator => 'Calculator';
 
   @override
   String get retry => 'Retry';

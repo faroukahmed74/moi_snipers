@@ -256,6 +256,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'References'**
   String get references;
+  String get calculator;
 
   /// No description provided for @retry.
   ///

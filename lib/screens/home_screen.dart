@@ -52,6 +52,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Ti
   StreamSubscription<double>? _headingSub;
   bool useTrueNorth = true;
 
+  // Angle between wind direction and compass heading
+  double? windHeadingAngle;
+
   String? latestVersion;
   String? appVersion;
 
@@ -69,7 +72,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Ti
     // Subscribe to heading stream before starting service to avoid race conditions
     _headingSub = CompassService.instance.headingStream.listen((h) {
       if (!mounted) return;
-      setState(() { compassHeading = h; });
+      setState(() {
+        compassHeading = h;
+        final wd = weatherData?['windDirection'] as double?;
+        if (wd != null) {
+          double a = (wd - compassHeading);
+          a = (a % 360 + 360) % 360; // normalize to [0,360)
+          if (a > 180) a = 360 - a;  // smallest angle
+          windHeadingAngle = a;
+        } else {
+          windHeadingAngle = null;
+        }
+      });
     });
     // Start shared CompassService after first frame to ensure iOS plugins are ready
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -185,6 +199,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Ti
         weatherData = weather;
       }
       isLoadingWeather = false;
+      // Update wind vs heading angle when weather data (windDirection) changes
+      final wd = weatherData?['windDirection'] as double?;
+      if (wd != null) {
+        double a = (wd - compassHeading);
+        a = (a % 360 + 360) % 360; // normalize to [0,360)
+        if (a > 180) a = 360 - a;  // smallest angle
+        windHeadingAngle = a;
+      } else {
+        windHeadingAngle = null;
+      }
     });
 
     // Fetch declination based on weather location if available
@@ -895,6 +919,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Ti
                 _loadSnipersAndSettings();
               },
             ),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!.calculator),
+              leading: const Icon(Icons.calculate),
+              onTap: () async {
+                await Navigator.pushNamed(context, '/calculator');
+              },
+            ),
           ],
         ),
       ),
@@ -1164,6 +1195,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, Ti
                           Text(
                             Localizations.localeOf(context).languageCode == 'ar' ? 'البوصلة' : 'Compass',
                             style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Spacer(),
+                          // Angle label on the opposite (top-right)
+                          Text(
+                            Localizations.localeOf(context).languageCode == 'ar'
+                                ? 'الزاوية هي: ${(windHeadingAngle ?? 0).toStringAsFixed(0)}°'
+                                : 'Angle is: ${(windHeadingAngle ?? 0).toStringAsFixed(0)}°',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.right,
                           ),
                         ],
                       ),

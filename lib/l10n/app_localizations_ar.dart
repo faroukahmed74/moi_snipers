@@ -88,6 +88,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get references => 'المراجع';
+  @override
+  String get calculator => 'آلة حاسبة';
 
   @override
   String get retry => 'إعادة المحاولة';
